@@ -9,6 +9,6 @@ function fetch_cached() {
       dnaDetails = resp.data;
     });
 
-    return employees;
+    return dnaDetails;
   }
 }
