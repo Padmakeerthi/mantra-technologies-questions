@@ -1,14 +1,19 @@
-function fetch_cached() {
+async function fetch_cached() {
 
   let dnaDetails;
   if (localStorage.getItem("dnaDetails") != null) {
+    // Looking in local storage
     dnaDetails = JSON.parse(localStorage.getItem("dnaDetails"));
   } else {
-    axios.get('http://api.plos.org/search?q=title:DNA').then(resp => {
+    await axios.get('http://api.plos.org/search?q=title:DNA').then(function(resp){
+      // Handling success case
       localStorage.setItem("dnaDetails", JSON.stringify(resp.data));
       dnaDetails = resp.data;
+    }).catch(function(error){
+      // Handling error case
     });
-
-    return dnaDetails;
   }
+  return dnaDetails;
 }
+
+fetch_cached();
